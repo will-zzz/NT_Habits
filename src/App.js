@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import CharacterSection from "./components/CharacterSection";
+import ChecklistSection from "./components/ChecklistSection";
+import ImageGridSection from "./components/ImageGridSection";
+import Navbar from "./components/Navbar";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="h-screen flex flex-wrap">
+      <Navbar />
+      <CharacterSection />
+      <ChecklistSection />
+      <ImageGridSection />
     </div>
   );
-}
+};
 
 export default App;
