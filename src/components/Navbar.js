@@ -1,14 +1,18 @@
 // src/components/Navbar.js
 import React from "react";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
 
 const Navbar = () => {
   // Placeholder for the user's Ethereum address (last digits)
   const ethereumAddress = "0xAbCdEf...";
 
   // Placeholder for the account button click handler (to be linked with Google Sign-In)
-  const handleAccountClick = () => {
+  const handleGoogle = async (e) => {
     // Implement your account button click logic here
     console.log("Account button clicked");
+    const provider = await new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
   };
 
   return (
@@ -28,7 +32,7 @@ const Navbar = () => {
         {/* Account button */}
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-          onClick={handleAccountClick}
+          onClick={handleGoogle}
         >
           Account
         </button>
