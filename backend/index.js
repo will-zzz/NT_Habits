@@ -81,6 +81,21 @@ app.delete("/api/tasks/:userId/:taskId", (req, res) => {
   });
 });
 
+// Update user's timezone at login
+app.post("/api/login", async (req, res) => {
+  const { uid, timezone } = req.body;
+
+  const userRef = admin.database().ref(`users/${uid}`);
+  userRef.update({ timezone }, (error) => {
+    if (error) {
+      console.error("Error updating timezone:", error);
+      res.status(500).json({ error: "Error updating timezone" });
+    } else {
+      res.json({ message: "Timezone updated successfully!" });
+    }
+  });
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

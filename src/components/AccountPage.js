@@ -1,5 +1,5 @@
 // src/components/AccountPage.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { auth } from "../firebase/firebaseConfig";
 import axios from "axios";
 
