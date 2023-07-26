@@ -1,20 +1,27 @@
 import React from "react";
-import { ref, get, onValue } from "firebase/database";
+import { ref, get } from "firebase/database";
 import { database } from "../firebase/firebaseConfig";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const CharacterSection = ({ user }) => {
   const [displayName, setDisplayName] = useState("");
 
-  const nameRef = ref(database, `users/${user.uid}/displayName`);
-  get(nameRef).then((snapshot) => {
-    const userData = snapshot.val();
-    if (!userData) {
-      setDisplayName("Citizen");
-    } else {
-      setDisplayName(userData.displayName);
-    }
-  });
+  useEffect(() => {
+    getName();
+  }, [user.uid]);
+
+  // Firebase
+  const getName = () => {
+    const nameRef = ref(database, `users/${user.uid}/displayName`);
+    get(nameRef).then((snapshot) => {
+      const userData = snapshot.val();
+      if (!userData) {
+        setDisplayName("Citizen");
+      } else {
+        setDisplayName(userData);
+      }
+    });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center w-1/3 bg-gray-100">

@@ -1,18 +1,24 @@
 // src/components/AccountPage.js
 import React, { useState, useEffect } from "react";
-import { auth, database } from "../firebase/firebaseConfig";
-import { ref, set, onValue } from "firebase/database";
+import { auth } from "../firebase/firebaseConfig";
+import axios from "axios";
 
 const AccountPage = ({ user }) => {
   const [displayName, setDisplayName] = useState("");
 
-  const handleUpdateProfile = () => {
-    // Update the user's display name in Firebase's Realtime Database
-    if (user) {
-      set(ref(database, `users/${user.uid}/displayName`), {
-        displayName: displayName,
-      });
-      alert("Profile updated successfully!");
+  const handleUpdateProfile = async () => {
+    try {
+      if (user) {
+        const response = await axios.put(
+          `http://localhost:6969/api/update-name/${user.uid}`,
+          {
+            displayName: displayName,
+          }
+        );
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error updating name:", error);
     }
   };
 
