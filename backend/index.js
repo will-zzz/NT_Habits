@@ -66,6 +66,21 @@ app.put("/api/update-name/:userId", (req, res) => {
   });
 });
 
+// Delete task
+app.delete("/api/tasks/:userId/:taskId", (req, res) => {
+  const { userId, taskId } = req.params;
+
+  const taskRef = admin.database().ref(`users/${userId}/tasks/${taskId}`);
+  taskRef.remove((error) => {
+    if (error) {
+      console.error("Error deleting task:", error);
+      res.status(500).json({ error: "Error deleting task" });
+    } else {
+      res.json({ message: "Task deleted successfully!" });
+    }
+  });
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

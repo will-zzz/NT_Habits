@@ -60,6 +60,19 @@ const TaskList = ({ user }) => {
     }
   };
 
+  // Server
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await axios.delete(
+        `http://localhost:6969/api/tasks/${user.uid}/${taskId}`
+      );
+      // Update the state to remove the deleted task
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+
   return (
     <>
       <ul className="my-4">
@@ -77,6 +90,15 @@ const TaskList = ({ user }) => {
               />
               {task.task}
             </label>
+            {/* Red x to delete task */}
+            <button
+              className="text-red-500"
+              onClick={() => {
+                handleDeleteTask(task.id);
+              }}
+            >
+              X
+            </button>
           </li>
         ))}
       </ul>
