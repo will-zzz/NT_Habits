@@ -73,6 +73,34 @@ const TaskList = ({ user }) => {
     }
   };
 
+  // Handle claim rewards
+  const handleClaimRewards = async () => {
+    try {
+      // Get the current date in the user's timezone (formatted as "YYYY-MM-DD")
+      const currentDate = new Date(); // Get the current date as a JavaScript Date object
+
+      // Extract the year, month, and day components from the current date
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+
+      const response = await axios.post(
+        "http://localhost:6969/api/claim-rewards",
+        {
+          uid: user.uid,
+          year: year,
+          month: month,
+          day: day,
+        }
+      );
+      console.log(response.data.message); // Success message
+      fetchTasks(); // Refresh tasks after claiming rewards
+    } catch (error) {
+      console.error("Error claiming rewards:", error.response.data.error);
+      // Handle error here if needed
+    }
+  };
+
   return (
     <>
       <ul className="my-4">
@@ -121,6 +149,13 @@ const TaskList = ({ user }) => {
           </button>
         </div>
       </form>
+      {/* Claim Rewards Button */}
+      <button
+        className="bg-green-500 text-white px-4 py-2 rounded-lg mt-4"
+        onClick={handleClaimRewards}
+      >
+        Claim Rewards
+      </button>
     </>
   );
 };

@@ -15,11 +15,11 @@ const App = () => {
     // Check if the user is signed in
     auth.onAuthStateChanged((user) => {
       if (user) {
-        // Get the user's timezone using the Intl API (this requires browser support)
+        // Get the user's timezone
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
         // Send the user's UID and timezone to the backend
-        axios.post("http://localhost:6969/api/login", {
+        axios.post("http://localhost:6969/api/update-timezone", {
           uid: user.uid,
           timezone: timezone,
         });
