@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 h-12 bg-black text-white flex items-center justify-between px-4">
+    <nav className="fixed top-0 left-0 right-0 z-10 h-12 bg-black text-white border-b-[1px] border-white flex items-center justify-between px-4">
       <div className="flex items-center">
         {/* Logo */}
         <div className="w-8 h-8 mr-4 flex-shrink-0">

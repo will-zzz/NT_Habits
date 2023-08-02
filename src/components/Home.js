@@ -1,18 +1,15 @@
 import React from "react";
-import CharacterSection from "./CharacterSection";
-import ChecklistSection from "./ChecklistSection";
-import ImageGridSection from "./ImageGridSection";
 import Banner from "./Banner";
+import Divider from "./Divider";
+import MainSection from "./MainSection";
 
 const Home = ({ user }) => {
   return (
-    <>
-      {/* <CharacterSection user={user} /> */}
-      {/* <ChecklistSection user={user} /> */}
-      {/* <ImageGridSection /> */}
-
+    <div className="h-screen overflow-hidden">
       <Banner user={user} />
-    </>
+      <Divider />
+      <MainSection user={user} />
+    </div>
   );
 };
 
