@@ -1,5 +1,6 @@
 import React from "react";
 import ListItem from "./ListItem";
+import { Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 import { ref, get } from "firebase/database";
 import { database } from "../firebase/firebaseConfig";
@@ -83,24 +84,22 @@ const Dailies = ({ user }) => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-600 border border-white p-1">
-      {/* Your content for Dailies component */}
-      <ul className="overflow-y-auto max-h-[calc(100vh-17rem)]">
+    <div className="h-full bg-gray-600 border border-white p-1 flex flex-col justify-between">
+      <ul className="overflow-scroll max-h-[calc(100vh-100vw/4.5-8.4rem)]">
         {tasks.map((task) => (
           <ListItem
             key={task.id}
+            index={task.index}
             task={task}
             handleTaskToggle={handleTaskToggle}
             handleDeleteTask={handleDeleteTask}
           />
         ))}
       </ul>
-
       {/* New Task Button */}
       <form
         onSubmit={handleAddTask}
-        // fixed at bottom, like a footer
-        className="flex items-center justify-between bg-transparent border border-white p-2 sticky bottom-0"
+        className="flex items-center justify-between bg-transparent border border-white p-1"
       >
         <input
           type="text"

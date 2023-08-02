@@ -5,7 +5,7 @@ import MainSection from "./MainSection";
 
 const Home = ({ user }) => {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen flex flex-col">
       <Banner user={user} />
       <Divider />
       <MainSection user={user} />

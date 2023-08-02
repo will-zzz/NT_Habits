@@ -34,18 +34,16 @@ const App = () => {
   }
 
   return (
-    <div className="h-screen flex flex-wrap">
+    <div className="bg-black">
       {/* Always show the Navbar, regardless of the user's authentication state */}
       <Navbar />
 
       {/* If the user is signed in, show the app components */}
       {user ? (
-        <>
-          <Routes>
-            <Route path="/" element={<Home user={user} />} />
-            <Route path="/account" element={<AccountPage user={user} />} />
-          </Routes>
-        </>
+        <Routes>
+          <Route path="/" element={<Home user={user} />} />
+          <Route path="/account" element={<AccountPage user={user} />} />
+        </Routes>
       ) : (
         // If the user is not signed in, show a black screen
         <div className="w-full h-full bg-black"></div>

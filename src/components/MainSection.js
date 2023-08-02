@@ -5,14 +5,14 @@ import Inventory from "./Inventory";
 
 const MainSection = ({ user }) => {
   return (
-    <div className="flex flex-grow bg-black h-full">
-      <div className="w-1/3">
+    <div className="flex h-full">
+      <div className="w-1/3 m-1">
         <Quests />
       </div>
-      <div className="w-1/3">
+      <div className="w-1/3 m-1">
         <Dailies user={user} />
       </div>
-      <div className="w-1/3">
+      <div className="w-1/3 m-1">
         <Inventory />
       </div>
     </div>
