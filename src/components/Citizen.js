@@ -37,7 +37,7 @@ const Citizen = () => {
             key={index}
             src={link}
             alt={`Overlay ${index + 1}`}
-            className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/5 object-cover z-${
+            className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/5 object-cover pointer-events-none z-${
               index + 1
             }`}
           />

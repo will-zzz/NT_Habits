@@ -7,13 +7,13 @@ const MainSection = ({ user }) => {
   return (
     <div className="flex h-full">
       <div className="w-1/3 m-1">
-        <Quests />
+        <Quests user={user} />
       </div>
       <div className="w-1/3 m-1">
         <Dailies user={user} />
       </div>
       <div className="w-1/3 m-1">
-        <Inventory />
+        <Inventory user={user} />
       </div>
     </div>
   );

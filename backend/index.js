@@ -192,6 +192,44 @@ app.get("/api/citizen/:season/:id", async (req, res) => {
   res.send(hrefs);
 });
 
+// Add new quest
+app.post("/api/quests/:userId", (req, res) => {
+  const { userId } = req.params;
+  const newQuest = req.body;
+
+  const questsRef = admin.database().ref(`users/${userId}/quests`);
+  const newQuestRef = questsRef.push();
+
+  newQuestRef.set(newQuest, (error) => {
+    if (error) {
+      console.error("Error adding new Quest:", error);
+      res.status(500).json({ error: "Error adding new Quest" });
+    } else {
+      res.json({ id: newQuestRef.key, ...newQuest });
+    }
+  });
+});
+
+// Add new quest task
+app.post("/api/quests/tasks/:userId/:questId", (req, res) => {
+  const { userId, questId } = req.params;
+  const newTask = req.body;
+
+  const tasksRef = admin
+    .database()
+    .ref(`users/${userId}/quests/${questId}/tasks`);
+  const newTaskRef = tasksRef.push();
+
+  newTaskRef.set(newTask, (error) => {
+    if (error) {
+      console.error("Error adding new Task:", error);
+      res.status(500).json({ error: "Error adding new Task" });
+    } else {
+      res.json({ id: newTaskRef.key, ...newTask });
+    }
+  });
+});
+
 const utcOffsets = [
   "-12:00",
   "-11:00",

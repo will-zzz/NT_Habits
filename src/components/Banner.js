@@ -7,7 +7,11 @@ const Banner = () => {
   return (
     <div className="relative w-screen mt-12">
       {/* Location */}
-      <img src={imageUrl} alt="Banner Image" className="w-full object-cover" />
+      <img
+        src={imageUrl}
+        alt="Banner Image"
+        className="w-full object-cover pointer-events-none"
+      />
       {/* Content inside the banner, if any */}
       {/* Button that calls fetchCitizen */}
       <Citizen />
