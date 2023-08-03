@@ -2,8 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
 require("dotenv").config();
-const moment = require("moment-timezone");
-const { update } = require("firebase/database");
+const fetch = require("node-fetch");
 
 // Initialize Firebase Admin SDK
 const firebaseConfig = JSON.parse(process.env.FIREBASE_KEY);
@@ -103,7 +102,7 @@ const areAllTasksComplete = (tasks) => {
   return tasks.every((task) => task.completed);
 };
 
-// Hhandle the claim button functionality
+// Handle the claim button functionality
 app.post("/api/claim-rewards", async (req, res) => {
   const { uid, year, month, day } = req.body;
 
@@ -163,6 +162,34 @@ app.post("/api/claim-rewards", async (req, res) => {
     console.error("Error claiming rewards:", error);
     res.status(500).json({ error: "Failed to claim rewards." });
   }
+});
+
+// Update tasks
+app.put("/api/update-tasks/:userId/:taskId", (req, res) => {
+  const { userId, taskId } = req.params;
+  const updatedTask = req.body;
+
+  const taskRef = admin.database().ref(`users/${userId}/tasks/${taskId}`);
+  taskRef.update(updatedTask, (error) => {
+    if (error) {
+      console.error("Error updating task:", error);
+      res.status(500).json({ error: "Error updating task" });
+    } else {
+      res.json({ id: taskId, ...updatedTask });
+    }
+  });
+});
+
+// Fetch citizen images
+app.get("/api/citizen/:season/:id", async (req, res) => {
+  const { season, id } = req.params;
+  const url = `https://neotokyo-v2.sfo3.cdn.digitaloceanspaces.com/s${season}Citizen/svgs/${id}.svg`;
+  // Fetch the citizen image from web, then console log the hrefs embedded in the svg
+  const response = await fetch(url);
+  const text = await response.text();
+  const hrefs = text.match(/href="([^"]*)"/g).map((href) => href.slice(6, -1));
+  console.log(hrefs);
+  res.send(hrefs);
 });
 
 const utcOffsets = [

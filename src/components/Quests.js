@@ -1,11 +1,11 @@
 import React from "react";
+import Quest from "./Quest";
 
 const Quests = () => {
   return (
     <div className="h-full bg-gray-600 border border-white p-1">
       <div className="h-full border border-red-500">
-        <h2 className="text-white text-2xl font-bold">Quests</h2>
-        {/* Add your quest-related content here */}
+        <Quest />
       </div>
     </div>
   );
