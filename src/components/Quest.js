@@ -35,6 +35,26 @@ const Quest = ({ quest, user }) => {
   };
 
   // Server
+  const handleTaskToggle = async (taskId, completed) => {
+    try {
+      await axios.put(
+        `http://localhost:6969/api/quests/tasks/${user.uid}/${quest.id}/${taskId}`,
+        {
+          completed: !completed,
+        }
+      );
+      // Update the state to reflect the toggled task
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId ? { ...task, completed: !completed } : task
+        )
+      );
+    } catch (error) {
+      console.error("Error toggling task:", error);
+    }
+  };
+
+  // Server
   const handleAddTask = async (e) => {
     e.preventDefault();
 
@@ -61,7 +81,41 @@ const Quest = ({ quest, user }) => {
     }
   };
 
-  const onDragEnd = (result) => {};
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    // Set the new order of the tasks
+    const newTasks = [...tasks];
+    newTasks.splice(source.index, 1);
+    newTasks.splice(destination.index, 0, tasks[source.index]);
+    setTasks(newTasks);
+
+    // Update the order child of each task in database
+    // Layout: { id: { task: "task", completed: false, order: 0 } }
+    newTasks.forEach(async (task, index) => {
+      try {
+        await axios.put(
+          `http://localhost:6969/api/update-quest-tasks/${user.uid}/${quest.id}/${task.id}`,
+          {
+            order: index,
+          }
+        );
+      } catch (error) {
+        console.error("Error updating task order:", error);
+      }
+    });
+  };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -90,7 +144,8 @@ const Quest = ({ quest, user }) => {
                       task={task}
                       index={index}
                       //   handleDeleteTask={handleDeleteTask}
-                      //   handleToggleTask={handleToggleTask}
+                      handleTaskToggle={handleTaskToggle}
+                      questId={quest.id}
                     />
                   ))}
                   {provided.placeholder}

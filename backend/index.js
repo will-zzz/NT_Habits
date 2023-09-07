@@ -180,6 +180,24 @@ app.put("/api/update-tasks/:userId/:taskId", (req, res) => {
   });
 });
 
+// Update quest tasks
+app.put("/api/update-quest-tasks/:userId/:questId/:taskId", (req, res) => {
+  const { userId, questId, taskId } = req.params;
+  const updatedTask = req.body;
+
+  const taskRef = admin
+    .database()
+    .ref(`users/${userId}/quests/${questId}/tasks/${taskId}`);
+  taskRef.update(updatedTask, (error) => {
+    if (error) {
+      console.error("Error updating task:", error);
+      res.status(500).json({ error: "Error updating task" });
+    } else {
+      res.json({ id: taskId, ...updatedTask });
+    }
+  });
+});
+
 // Fetch citizen images
 app.get("/api/citizen/:season/:id", async (req, res) => {
   const { season, id } = req.params;
@@ -226,6 +244,24 @@ app.post("/api/quests/tasks/:userId/:questId", (req, res) => {
       res.status(500).json({ error: "Error adding new Task" });
     } else {
       res.json({ id: newTaskRef.key, ...newTask });
+    }
+  });
+});
+
+// Update quest task
+app.put("/api/quests/tasks/:userId/:questId/:taskId", (req, res) => {
+  const { userId, questId, taskId } = req.params;
+  const updatedTask = req.body;
+
+  const taskRef = admin
+    .database()
+    .ref(`users/${userId}/quests/${questId}/tasks/${taskId}`);
+  taskRef.update(updatedTask, (error) => {
+    if (error) {
+      console.error("Error updating task:", error);
+      res.status(500).json({ error: "Error updating task" });
+    } else {
+      res.json({ id: taskId, ...updatedTask });
     }
   });
 });

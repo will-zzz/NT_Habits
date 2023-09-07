@@ -13,7 +13,7 @@ const Citizen = () => {
 
   const getCitizenImages = async () => {
     try {
-      const citizen = await fetchCitizen(2, 110);
+      const citizen = await fetchCitizen(1, 1);
       // get link from citizen array that ends with /background/
       const backgroundImageHref = citizen.find((href) =>
         /\/background\/\d+\.png$/.test(href)

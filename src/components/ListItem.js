@@ -1,7 +1,13 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
-const ListItem = ({ task, index, handleTaskToggle, handleDeleteTask }) => {
+const ListItem = ({
+  task,
+  index,
+  handleTaskToggle,
+  handleDeleteTask,
+  questId,
+}) => {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided) => (
