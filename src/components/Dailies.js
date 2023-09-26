@@ -145,7 +145,7 @@ const Dailies = ({ user }) => {
         {/* New Task Button */}
         <form
           onSubmit={handleAddTask}
-          className="flex items-center justify-between bg-transparent border border-white p-1"
+          className="flex items-center justify-between bg-transparent border border-gray-400 p-1"
         >
           <input
             type="text"
@@ -157,7 +157,7 @@ const Dailies = ({ user }) => {
           <button
             type="submit"
             // Put plus sign inside button on right
-            className="bg-transparent text-white outline-none"
+            className="bg-transparent text-gray-400 outline-none"
           >
             <span className="text-2xl">+</span>
           </button>

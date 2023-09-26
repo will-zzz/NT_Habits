@@ -82,6 +82,38 @@ app.delete("/api/tasks/:userId/:taskId", (req, res) => {
   });
 });
 
+// Delete quest task
+app.delete("/api/tasks/:userId/:questId/:taskId", (req, res) => {
+  const { userId, questId, taskId } = req.params;
+
+  const taskRef = admin
+    .database()
+    .ref(`users/${userId}/quests/${questId}/tasks/${taskId}`);
+  taskRef.remove((error) => {
+    if (error) {
+      console.error("Error deleting task:", error);
+      res.status(500).json({ error: "Error deleting task" });
+    } else {
+      res.json({ message: "Task deleted successfully!" });
+    }
+  });
+});
+
+// Delete quest
+app.delete("/api/quests/:userId/:questId", (req, res) => {
+  const { userId, questId } = req.params;
+
+  const questRef = admin.database().ref(`users/${userId}/quests/${questId}`);
+  questRef.remove((error) => {
+    if (error) {
+      console.error("Error deleting quest:", error);
+      res.status(500).json({ error: "Error deleting quest" });
+    } else {
+      res.json({ message: "Quest deleted successfully!" });
+    }
+  });
+});
+
 // Update user's timezone at login
 app.post("/api/update-timezone/", async (req, res) => {
   const { uid, timezone } = req.body;
