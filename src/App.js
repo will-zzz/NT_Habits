@@ -39,15 +39,10 @@ const App = () => {
       <Navbar />
 
       {/* If the user is signed in, show the app components */}
-      {user ? (
-        <Routes>
-          <Route path="/" element={<Home user={user} />} />
-          <Route path="/account" element={<AccountPage user={user} />} />
-        </Routes>
-      ) : (
-        // If the user is not signed in, show a black screen
-        <div className="w-full h-full bg-black"></div>
-      )}
+      <Routes>
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/account" element={<AccountPage user={user} />} />
+      </Routes>
     </div>
   );
 };
