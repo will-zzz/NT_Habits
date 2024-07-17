@@ -2,8 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
 require("dotenv").config();
-const moment = require("moment-timezone");
-const { update } = require("firebase/database");
+const fetch = require("node-fetch");
 
 // Initialize Firebase Admin SDK
 const firebaseConfig = JSON.parse(process.env.FIREBASE_KEY);
@@ -83,6 +82,38 @@ app.delete("/api/tasks/:userId/:taskId", (req, res) => {
   });
 });
 
+// Delete quest task
+app.delete("/api/tasks/:userId/:questId/:taskId", (req, res) => {
+  const { userId, questId, taskId } = req.params;
+
+  const taskRef = admin
+    .database()
+    .ref(`users/${userId}/quests/${questId}/tasks/${taskId}`);
+  taskRef.remove((error) => {
+    if (error) {
+      console.error("Error deleting task:", error);
+      res.status(500).json({ error: "Error deleting task" });
+    } else {
+      res.json({ message: "Task deleted successfully!" });
+    }
+  });
+});
+
+// Delete quest
+app.delete("/api/quests/:userId/:questId", (req, res) => {
+  const { userId, questId } = req.params;
+
+  const questRef = admin.database().ref(`users/${userId}/quests/${questId}`);
+  questRef.remove((error) => {
+    if (error) {
+      console.error("Error deleting quest:", error);
+      res.status(500).json({ error: "Error deleting quest" });
+    } else {
+      res.json({ message: "Quest deleted successfully!" });
+    }
+  });
+});
+
 // Update user's timezone at login
 app.post("/api/update-timezone/", async (req, res) => {
   const { uid, timezone } = req.body;
@@ -103,7 +134,7 @@ const areAllTasksComplete = (tasks) => {
   return tasks.every((task) => task.completed);
 };
 
-// Hhandle the claim button functionality
+// Handle the claim button functionality
 app.post("/api/claim-rewards", async (req, res) => {
   const { uid, year, month, day } = req.body;
 
@@ -163,6 +194,108 @@ app.post("/api/claim-rewards", async (req, res) => {
     console.error("Error claiming rewards:", error);
     res.status(500).json({ error: "Failed to claim rewards." });
   }
+});
+
+// Update tasks
+app.put("/api/update-tasks/:userId/:taskId", (req, res) => {
+  const { userId, taskId } = req.params;
+  const updatedTask = req.body;
+
+  const taskRef = admin.database().ref(`users/${userId}/tasks/${taskId}`);
+  taskRef.update(updatedTask, (error) => {
+    if (error) {
+      console.error("Error updating task:", error);
+      res.status(500).json({ error: "Error updating task" });
+    } else {
+      res.json({ id: taskId, ...updatedTask });
+    }
+  });
+});
+
+// Update quest tasks
+app.put("/api/update-quest-tasks/:userId/:questId/:taskId", (req, res) => {
+  const { userId, questId, taskId } = req.params;
+  const updatedTask = req.body;
+
+  const taskRef = admin
+    .database()
+    .ref(`users/${userId}/quests/${questId}/tasks/${taskId}`);
+  taskRef.update(updatedTask, (error) => {
+    if (error) {
+      console.error("Error updating task:", error);
+      res.status(500).json({ error: "Error updating task" });
+    } else {
+      res.json({ id: taskId, ...updatedTask });
+    }
+  });
+});
+
+// Fetch citizen images
+app.get("/api/citizen/:season/:id", async (req, res) => {
+  const { season, id } = req.params;
+  const url = `https://raw.seadn.io/files/9588ed1983f408a0b126cc923e72990e.svg`;
+  // Fetch the citizen image from web, then console log the hrefs embedded in the svg
+  const response = await fetch(url);
+  const text = await response.text();
+  const hrefs = text.match(/href="([^"]*)"/g).map((href) => href.slice(6, -1));
+  console.log(hrefs);
+  res.send(hrefs);
+});
+
+// Add new quest
+app.post("/api/quests/:userId", (req, res) => {
+  const { userId } = req.params;
+  const newQuest = req.body;
+
+  const questsRef = admin.database().ref(`users/${userId}/quests`);
+  const newQuestRef = questsRef.push();
+
+  newQuestRef.set(newQuest, (error) => {
+    if (error) {
+      console.error("Error adding new Quest:", error);
+      res.status(500).json({ error: "Error adding new Quest" });
+    } else {
+      res.json({ id: newQuestRef.key, ...newQuest });
+    }
+  });
+});
+
+// Add new quest task
+app.post("/api/quests/tasks/:userId/:questId", (req, res) => {
+  const { userId, questId } = req.params;
+  const newTask = req.body;
+
+  const tasksRef = admin
+    .database()
+    .ref(`users/${userId}/quests/${questId}/tasks`);
+  const newTaskRef = tasksRef.push();
+
+  newTaskRef.set(newTask, (error) => {
+    if (error) {
+      console.error("Error adding new Task:", error);
+      res.status(500).json({ error: "Error adding new Task" });
+    } else {
+      res.json({ id: newTaskRef.key, ...newTask });
+    }
+  });
+});
+
+// Update quest task
+app.put("/api/quests/tasks/:userId/:questId/:taskId", (req, res) => {
+  const { userId, questId, taskId } = req.params;
+  const updatedTask = req.body;
+
+  const taskRef = admin
+    .database()
+    .ref(`users/${userId}/quests/${questId}/tasks/${taskId}`);
+  taskRef.update(updatedTask, (error) => {
+    if (error) {
+      console.error("Error updating task:", error);
+      res.status(500).json({ error: "Error updating task" });
+    } else {
+      res.json({ id: taskId, ...updatedTask });
+    }
+  });
 });
 
 const utcOffsets = [
