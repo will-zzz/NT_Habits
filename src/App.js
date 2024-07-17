@@ -4,7 +4,7 @@ import { auth } from "./firebase/firebaseConfig";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import AccountPage from "./components/AccountPage";
+// import AccountPage from "./components/AccountPage";
 import axios from "axios";
 
 const App = () => {
@@ -41,7 +41,7 @@ const App = () => {
       {/* If the user is signed in, show the app components */}
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/account" element={<AccountPage user={user} />} />
+        {/* <Route path="/account" element={<AccountPage user={user} />} /> */}
       </Routes>
     </div>
   );

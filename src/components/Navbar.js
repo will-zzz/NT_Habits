@@ -3,7 +3,7 @@ import React from "react";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import MenuDropdown from "./MenuDropdown";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
@@ -36,7 +36,7 @@ const Navbar = () => {
           />
         </div>
         {/* Title */}
-        <Link to="/">
+        <Link href="/">
           <h1 className="text-xl font-bold">TaskHack</h1>
         </Link>
       </div>
@@ -67,15 +67,15 @@ const Navbar = () => {
 
         {/* Account Button */}
         {user ? (
-          <Link to="/account">
-            <button className="bg-black text-white border-white border border-[0.5px] px-3 py-1 rounded-lg text-sm">
-              Account
-            </button>
-          </Link>
+          // <Link href="/account">
+          <button className="bg-black text-white border-white border-[0.5px] px-3 py-1 rounded-lg text-sm">
+            Sign Out
+          </button>
         ) : (
+          // </Link>
           <button
             onClick={handleGoogle}
-            className="bg-black text-white border-white border border-[0.5px] px-3 py-1 rounded-lg text-sm"
+            className="bg-black text-white border-white border-[0.5px] px-3 py-1 rounded-lg text-sm"
           >
             Sign In
           </button>
