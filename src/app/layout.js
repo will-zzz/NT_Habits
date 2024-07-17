@@ -14,6 +14,7 @@ export default function RootLayout({ children }) {
           name="description"
           content="Web site created using create-react-app"
         />
+        <link rel="icon" href="/NTfavicon.ico" sizes="any" />
         {/* <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
