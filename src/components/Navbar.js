@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import MenuDropdown from "./MenuDropdown";
 import { useState } from "react";
+import { FaGithub } from "react-icons/fa";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -54,6 +55,15 @@ const Navbar = () => {
         <div className="flex items-center lg:hidden">
           <MenuDropdown showTexts={showTexts} setShowTexts={setShowTexts} />
         </div>
+
+        {/* GitHub Icon */}
+        <a
+          href="https://github.com/will-zzz/NT_Habits"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaGithub className="mr-2" />
+        </a>
 
         {/* Account Button */}
         {user ? (

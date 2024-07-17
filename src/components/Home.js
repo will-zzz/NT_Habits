@@ -16,7 +16,7 @@ const Home = ({ user }) => {
       ) : (
         <div className="h-screen w-full bg-black content-center text-center">
           <h1 className="text-white text-4xl">
-            Please log in with Google to continue.
+            Please sign in with Google to continue.
           </h1>
         </div>
       )}

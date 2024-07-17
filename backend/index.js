@@ -233,7 +233,7 @@ app.put("/api/update-quest-tasks/:userId/:questId/:taskId", (req, res) => {
 // Fetch citizen images
 app.get("/api/citizen/:season/:id", async (req, res) => {
   const { season, id } = req.params;
-  const url = `https://raw.seadn.io/files/9588ed1983f408a0b126cc923e72990e.svg`;
+  const url = `https://raw.seadn.io/files/50fb6747ce9c4f735171282aac19c4fa.svg`;
   // Fetch the citizen image from web, then console log the hrefs embedded in the svg
   const response = await fetch(url);
   const text = await response.text();
