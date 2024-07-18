@@ -13,12 +13,14 @@ export async function POST(request, context) {
   const { params } = context;
   const newTask = await request.json();
 
-  const taskRef = admin
+  const tasksRef = admin
     .database()
     .ref(`users/${params.userId}/quests/${params.questId}/tasks`);
+  const newTaskRef = tasksRef.push();
+
   try {
     await new Promise((resolve, reject) => {
-      taskRef.push(newTask, (error) => {
+      newTaskRef.set(newTask, (error) => {
         if (error) {
           console.error("Error adding quest task:", error);
           reject(new Error("Error adding quest task"));
@@ -27,7 +29,7 @@ export async function POST(request, context) {
         }
       });
     });
-    return Response.json({ id: params.questId, ...newTask }, { status: 200 });
+    return Response.json({ id: newTaskRef.key, ...newTask }, { status: 200 });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }

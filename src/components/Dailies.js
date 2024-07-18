@@ -102,12 +102,9 @@ const Dailies = ({ user }) => {
     // Layout: { id: { task: "task", completed: false, order: 0 } }
     newTasks.forEach(async (task, index) => {
       try {
-        await axios.put(
-          `http://localhost:6969/api/update-tasks/${user.uid}/${task.id}`,
-          {
-            order: index,
-          }
-        );
+        await axios.put(`/api/update-tasks/${user.uid}/${task.id}`, {
+          order: index,
+        });
       } catch (error) {
         console.error("Error updating task order:", error);
       }

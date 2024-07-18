@@ -11,12 +11,14 @@ if (!admin.apps.length) {
 
 export async function POST(request, context) {
   const { params } = context;
-  const updatedTask = await request.json();
+  const newQuest = await request.json();
 
-  const taskRef = admin.database().ref(`users/${params.userId}/quests`);
+  const questsRef = admin.database().ref(`users/${params.userId}/quests`);
+  const newQuestRef = questsRef.push();
+
   try {
     await new Promise((resolve, reject) => {
-      taskRef.push(updatedTask, (error) => {
+      newQuestRef.set(newQuest, (error) => {
         if (error) {
           console.error("Error adding quest:", error);
           reject(new Error("Error adding quest"));
@@ -25,10 +27,7 @@ export async function POST(request, context) {
         }
       });
     });
-    return Response.json(
-      { id: params.questId, ...updatedTask },
-      { status: 200 }
-    );
+    return Response.json({ id: newQuestRef.key, ...newQuest }, { status: 200 });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
