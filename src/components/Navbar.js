@@ -3,10 +3,11 @@ import React from "react";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import MenuDropdown from "./MenuDropdown";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
+import { sign } from "jsonwebtoken";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -36,7 +37,7 @@ const Navbar = () => {
           />
         </div>
         {/* Title */}
-        <Link to="/">
+        <Link href="/">
           <h1 className="text-xl font-bold">TaskHack</h1>
         </Link>
       </div>
@@ -44,9 +45,9 @@ const Navbar = () => {
       {/* Stats */}
       <div className="hidden lg:flex justify-center">
         <span className="mx-6">Location: Gas Station</span>
-        <span className="mx-6">gBYTES: 650 / 1100</span>
-        <span className="mx-6">Daily Streak: 9</span>
-        <span className="mx-6">Days Until BYTES Claim: 2</span>
+        <span className="mx-6">gBYTES: 0 / 1100</span>
+        <span className="mx-6">Daily Streak: 0</span>
+        <span className="mx-6">Days Until BYTES Claim: 0</span>
         {/* Add other text elements */}
       </div>
 
@@ -67,15 +68,16 @@ const Navbar = () => {
 
         {/* Account Button */}
         {user ? (
-          <Link to="/account">
-            <button className="bg-black text-white border-white border border-[0.5px] px-3 py-1 rounded-lg text-sm">
-              Account
-            </button>
-          </Link>
+          <button
+            onClick={() => signOut(auth)}
+            className="bg-black text-white border-white border-[0.5px] px-3 py-1 rounded-lg text-sm"
+          >
+            Sign Out
+          </button>
         ) : (
           <button
             onClick={handleGoogle}
-            className="bg-black text-white border-white border border-[0.5px] px-3 py-1 rounded-lg text-sm"
+            className="bg-black text-white border-white border-[0.5px] px-3 py-1 rounded-lg text-sm"
           >
             Sign In
           </button>

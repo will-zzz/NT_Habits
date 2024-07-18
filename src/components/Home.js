@@ -4,7 +4,7 @@ import Divider from "./Divider";
 import MainSection from "./MainSection";
 
 const Home = ({ user }) => {
-  console.log(user);
+  // console.log(user);
   return (
     <>
       {user ? (

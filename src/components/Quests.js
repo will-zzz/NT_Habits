@@ -38,7 +38,7 @@ const Quests = ({ user }) => {
     const newQuestToAdd = { quest: newQuest, completed: false };
     try {
       const response = await axios.post(
-        `http://localhost:6969/api/quests/${user.uid}`,
+        `/api/quests/${user.uid}`,
         newQuestToAdd
       );
       // Update the state to include the new task with its ID
@@ -55,9 +55,7 @@ const Quests = ({ user }) => {
   // Server
   const handleDeleteQuest = async (questId) => {
     try {
-      await axios.delete(
-        `http://localhost:6969/api/quests/${user.uid}/${questId}`
-      );
+      await axios.delete(`/api/quests/${user.uid}/${questId}`);
       // Update the state to remove the deleted quest
       setQuests((prevQuests) =>
         prevQuests.filter((quest) => quest.id !== questId)

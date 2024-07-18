@@ -37,12 +37,9 @@ const Quest = ({ quest, user, handleDeleteQuest }) => {
   // Server
   const handleTaskToggle = async (taskId, completed) => {
     try {
-      await axios.put(
-        `http://localhost:6969/api/quests/tasks/${user.uid}/${quest.id}/${taskId}`,
-        {
-          completed: !completed,
-        }
-      );
+      await axios.put(`/api/quests/tasks/${user.uid}/${quest.id}/${taskId}`, {
+        completed: !completed,
+      });
       // Update the state to reflect the toggled task
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
@@ -64,10 +61,12 @@ const Quest = ({ quest, user, handleDeleteQuest }) => {
       return;
     }
 
+    console.log(quest.id);
+
     const newTaskToAdd = { task: newTask, completed: false };
     try {
       const response = await axios.post(
-        `http://localhost:6969/api/quests/tasks/${user.uid}/${quest.id}`,
+        `/api/quests/tasks/${user.uid}/${quest.id}`,
         newTaskToAdd
       );
       // Update the state to include the new task with its ID
@@ -84,9 +83,7 @@ const Quest = ({ quest, user, handleDeleteQuest }) => {
   // Server
   const handleDeleteTask = async (taskId) => {
     try {
-      await axios.delete(
-        `http://localhost:6969/api/tasks/${user.uid}/${quest.id}/${taskId}`
-      );
+      await axios.delete(`/api/quests/tasks/${user.uid}/${quest.id}/${taskId}`);
       // Update the state to remove the deleted task
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     } catch (error) {
@@ -119,7 +116,7 @@ const Quest = ({ quest, user, handleDeleteQuest }) => {
     newTasks.forEach(async (task, index) => {
       try {
         await axios.put(
-          `http://localhost:6969/api/update-quest-tasks/${user.uid}/${quest.id}/${task.id}`,
+          `/api/update-quest-tasks/${user.uid}/${quest.id}/${task.id}`,
           {
             order: index,
           }

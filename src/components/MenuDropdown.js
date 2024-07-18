@@ -17,9 +17,9 @@ const MenuDropdown = ({ showTexts, setShowTexts }) => {
           {/* Your middle section text elements */}
           {/* For example */}
           <span className="text-white">Location: Gas Station</span>
-          <span className="text-white">gBYTES: 650 / 1100</span>
-          <span className="text-white">Daily Streak: 9</span>
-          <span className="text-white">Days Until BYTES Claim: 2</span>
+          <span className="text-white">gBYTES: 0 / 1100</span>
+          <span className="text-white">Daily Streak: 0</span>
+          <span className="text-white">Days Until BYTES Claim: 0</span>
         </div>
       )}
     </div>
