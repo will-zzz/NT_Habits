@@ -13,8 +13,8 @@ export async function POST(request, context) {
   const { params } = context;
   const newTask = await request.json();
 
-  console.log("params", params);
-  console.log("newTask", newTask);
+  // console.log("params", params);
+  // console.log("newTask", newTask);
 
   const tasksRef = admin.database().ref(`users/${params.userId}/tasks`);
   const newTaskRef = tasksRef.push();

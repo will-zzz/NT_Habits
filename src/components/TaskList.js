@@ -93,7 +93,7 @@ const TaskList = ({ user }) => {
           day: day,
         }
       );
-      console.log(response.data.message); // Success message
+      // console.log(response.data.message); // Success message
       fetchTasks(); // Refresh tasks after claiming rewards
     } catch (error) {
       console.error("Error claiming rewards:", error.response.data.error);

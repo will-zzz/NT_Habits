@@ -238,7 +238,7 @@ app.get("/api/citizen/:season/:id", async (req, res) => {
   const response = await fetch(url);
   const text = await response.text();
   const hrefs = text.match(/href="([^"]*)"/g).map((href) => href.slice(6, -1));
-  console.log(hrefs);
+  // console.log(hrefs);
   res.send(hrefs);
 });
 

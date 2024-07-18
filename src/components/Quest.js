@@ -61,7 +61,7 @@ const Quest = ({ quest, user, handleDeleteQuest }) => {
       return;
     }
 
-    console.log(quest.id);
+    // console.log(quest.id);
 
     const newTaskToAdd = { task: newTask, completed: false };
     try {
