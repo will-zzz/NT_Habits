@@ -7,6 +7,7 @@ import Link from "next/link";
 import MenuDropdown from "./MenuDropdown";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
+import { sign } from "jsonwebtoken";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -67,12 +68,13 @@ const Navbar = () => {
 
         {/* Account Button */}
         {user ? (
-          // <Link href="/account">
-          <button className="bg-black text-white border-white border-[0.5px] px-3 py-1 rounded-lg text-sm">
+          <button
+            onClick={() => signOut(auth)}
+            className="bg-black text-white border-white border-[0.5px] px-3 py-1 rounded-lg text-sm"
+          >
             Sign Out
           </button>
         ) : (
-          // </Link>
           <button
             onClick={handleGoogle}
             className="bg-black text-white border-white border-[0.5px] px-3 py-1 rounded-lg text-sm"
