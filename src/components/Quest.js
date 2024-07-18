@@ -37,12 +37,9 @@ const Quest = ({ quest, user, handleDeleteQuest }) => {
   // Server
   const handleTaskToggle = async (taskId, completed) => {
     try {
-      await axios.put(
-        `http://localhost:6969/api/quests/tasks/${user.uid}/${quest.id}/${taskId}`,
-        {
-          completed: !completed,
-        }
-      );
+      await axios.put(`/api/quests/tasks/${user.uid}/${quest.id}/${taskId}`, {
+        completed: !completed,
+      });
       // Update the state to reflect the toggled task
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
@@ -67,7 +64,7 @@ const Quest = ({ quest, user, handleDeleteQuest }) => {
     const newTaskToAdd = { task: newTask, completed: false };
     try {
       const response = await axios.post(
-        `http://localhost:6969/api/quests/tasks/${user.uid}/${quest.id}`,
+        `/api/quests/tasks/${user.uid}/${quest.id}`,
         newTaskToAdd
       );
       // Update the state to include the new task with its ID

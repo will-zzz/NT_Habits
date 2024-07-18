@@ -38,7 +38,7 @@ const Quests = ({ user }) => {
     const newQuestToAdd = { quest: newQuest, completed: false };
     try {
       const response = await axios.post(
-        `http://localhost:6969/api/quests/${user.uid}`,
+        `/api/quests/${user.uid}`,
         newQuestToAdd
       );
       // Update the state to include the new task with its ID

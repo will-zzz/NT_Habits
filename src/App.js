@@ -11,21 +11,21 @@ const App = () => {
   // Get the user's authentication state using useAuthState hook
   const [user, loading] = useAuthState(auth);
 
-  useEffect(() => {
-    // Check if the user is signed in
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        // Get the user's timezone
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  // useEffect(() => {
+  //   // Check if the user is signed in
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       // Get the user's timezone
+  //       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-        // Send the user's UID and timezone to the backend
-        axios.post("http://localhost:6969/api/update-timezone", {
-          uid: user.uid,
-          timezone: timezone,
-        });
-      }
-    });
-  }, []);
+  //       // Send the user's UID and timezone to the backend
+  //       axios.post("http://localhost:6969/api/update-timezone", {
+  //         uid: user.uid,
+  //         timezone: timezone,
+  //       });
+  //     }
+  //   });
+  // }, []);
 
   // Conditional rendering based on the user's authentication state
   if (loading) {
@@ -37,12 +37,7 @@ const App = () => {
     <div className="bg-black">
       {/* Always show the Navbar, regardless of the user's authentication state */}
       <Navbar />
-
-      {/* If the user is signed in, show the app components */}
-      <Routes>
-        <Route path="/" element={<Home user={user} />} />
-        {/* <Route path="/account" element={<AccountPage user={user} />} /> */}
-      </Routes>
+      <Home user={user} />
     </div>
   );
 };

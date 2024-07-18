@@ -83,7 +83,7 @@ app.delete("/api/tasks/:userId/:taskId", (req, res) => {
 });
 
 // Delete quest task
-app.delete("/api/tasks/:userId/:questId/:taskId", (req, res) => {
+app.delete("/api/quests/tasks/:userId/:questId/:taskId", (req, res) => {
   const { userId, questId, taskId } = req.params;
 
   const taskRef = admin

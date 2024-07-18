@@ -29,7 +29,7 @@ const Dailies = ({ user }) => {
   // Server
   const handleTaskToggle = async (taskId, completed) => {
     try {
-      await axios.put(`http://localhost:6969/api/tasks/${user.uid}/${taskId}`, {
+      await axios.put(`/api/tasks/${user.uid}/${taskId}`, {
         completed: !completed,
       });
       // Update the state to reflect the toggled task
@@ -55,10 +55,7 @@ const Dailies = ({ user }) => {
 
     const newTaskToAdd = { task: newTask, completed: false };
     try {
-      const response = await axios.post(
-        `http://localhost:6969/api/tasks/${user.uid}`,
-        newTaskToAdd
-      );
+      const response = await axios.post(`/api/tasks/${user.uid}`, newTaskToAdd);
       // Update the state to include the new task with its ID
       setTasks((prevTasks) => [
         ...prevTasks,
@@ -73,9 +70,7 @@ const Dailies = ({ user }) => {
   // Server
   const handleDeleteTask = async (taskId) => {
     try {
-      await axios.delete(
-        `http://localhost:6969/api/tasks/${user.uid}/${taskId}`
-      );
+      await axios.delete(`/api/tasks/${user.uid}/${taskId}`);
       // Update the state to remove the deleted task
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     } catch (error) {
