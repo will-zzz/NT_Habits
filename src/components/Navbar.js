@@ -45,9 +45,9 @@ const Navbar = () => {
       {/* Stats */}
       <div className="hidden lg:flex justify-center">
         <span className="mx-6">Location: Gas Station</span>
-        <span className="mx-6">gBYTES: 650 / 1100</span>
-        <span className="mx-6">Daily Streak: 9</span>
-        <span className="mx-6">Days Until BYTES Claim: 2</span>
+        <span className="mx-6">gBYTES: 0 / 1100</span>
+        <span className="mx-6">Daily Streak: 0</span>
+        <span className="mx-6">Days Until BYTES Claim: 0</span>
         {/* Add other text elements */}
       </div>
 
