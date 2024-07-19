@@ -15,6 +15,8 @@ It also lets the user create "quests," such as key life achievements and milesto
 
 Ironically, working on a productivity app every day kicked me into high gear and made me more productive. I focused on getting better, and over time my shoulders healed. Therefore, the demo does not include any on-chain items yet but can still be used as a goal setter and habit tracker.
 
+Also, I sold the NFT... so I couldn't exactly build it with Web3 support as planned.
+
 ## Run Locally
 
 Clone the project
