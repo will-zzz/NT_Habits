@@ -13,7 +13,7 @@ Featuring a video game character that "levels up" and collects cool new items an
 It also lets the user create "quests," such as key life achievements and milestones: running a marathon, launching a business, and even getting a pilot's license to name a few. These things take discipline and commitment, and this app can help guide the user to success.
 ### What happened to TaskHack?
 
-Ironically, working on a productivity app every day kicked me into high gear and made me more productive. I focused on getting better, and over time my shoulders healed. Therefore, the demo does not include any on-chain items yet but can still be used as a goal setter and habit tracker.
+Ironically, working on a productivity app every day kicked me into high gear and made me more productive. I focused on getting better, and over time my shoulders healed, so I stopped working on the app. Therefore, the demo does not include any on-chain items yet but can still be used as a goal setter and habit tracker.
 
 Also, I sold the NFT... so I couldn't exactly build it with Web3 support as planned.
 
